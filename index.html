@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fill-In App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-root">
+      <header class="app-header">
+        <div class="header-top">
+          <div>
+            <h1>Fill-In App</h1>
+          </div>
+          <div class="history-controls" aria-label="History controls">
+            <button id="undoBtn" class="history-btn" type="button" aria-label="Undo" title="Undo">
+              &#8630;
+            </button>
+            <button id="redoBtn" class="history-btn" type="button" aria-label="Redo" title="Redo">
+              &#8631;
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <section id="lotsContainer" class="lots-container" aria-live="polite"></section>
+
+      <section class="actions" aria-label="Actions">
+        <button id="addLotBtn" class="btn btn-secondary" type="button">Add Lot</button>
+        <button id="sendBtn" class="btn btn-primary" type="button">Send</button>
+      </section>
+
+      <section id="outputSection" class="output hidden" aria-label="Generated output">
+        <h2>Email Text</h2>
+        <textarea id="emailOutput" readonly></textarea>
+        <div class="output-actions">
+          <button id="copyBtn" class="btn btn-secondary" type="button">Copy Text</button>
+          <button id="emailBtn" class="btn btn-secondary" type="button">Open Email App</button>
+        </div>
+      </section>
+    </main>
+
+    <template id="lotCardTemplate">
+      <article class="lot-card">
+        <div class="lot-head">
+          <button class="remove-lot-btn" type="button" aria-label="Remove lot">x</button>
+        </div>
+
+        <section class="job-card" aria-label="Lot details">
+          <label class="field field-subdivision-search">
+            <span>Subdivision</span>
+            <input
+              class="subdivision-input"
+              type="text"
+              autocomplete="off"
+              placeholder="e.g. Brookstone"
+            />
+            <div class="subdivision-suggestions hidden" role="listbox"></div>
+          </label>
+          <label class="field field-lot-search">
+            <span>Lot Number</span>
+            <input class="lot-input" type="text" autocomplete="off" placeholder="e.g. 127" />
+            <div class="lot-suggestions hidden" role="listbox"></div>
+          </label>
+        </section>
+
+        <section class="items-container" aria-live="polite"></section>
+
+        <button class="btn btn-secondary add-item-btn" type="button" aria-label="Add item">+</button>
+      </article>
+    </template>
+
+    <template id="itemRowTemplate">
+      <article class="item-row">
+        <label class="field field-qty compact-field">
+          <span>Qty</span>
+          <input class="qty-input" type="number" min="1" step="1" inputmode="numeric" placeholder="1" />
+        </label>
+
+        <div class="field field-item-search compact-field">
+          <span>Item</span>
+          <input class="item-input" type="text" autocomplete="off" placeholder="Start typing description" />
+          <input class="pos-input" type="hidden" />
+          <div class="suggestions hidden" role="listbox"></div>
+        </div>
+
+        <button class="remove-item-btn" type="button" aria-label="Remove item">x</button>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>

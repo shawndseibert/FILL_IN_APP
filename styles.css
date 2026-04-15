@@ -1,0 +1,471 @@
+:root {
+  --bg: #111318;
+  --bg-accent: #171a20;
+  --bg-haze: rgba(53, 118, 184, 0.12);
+  --panel: #1b2028;
+  --panel-soft: #242b36;
+  --ink: #edf2fa;
+  --muted: #95a9c3;
+  --line: #303b4a;
+  --primary: #3b82f6;
+  --primary-ink: #eef5ff;
+  --secondary-bg: #2a3442;
+  --secondary-ink: #dbe7f7;
+  --danger-bg: #8b242f;
+  --danger-ink: #ffe0e4;
+  --input-bg: #141922;
+  --suggestion-hover: #2a3444;
+  --shadow: 0 24px 60px rgba(1, 4, 10, 0.62);
+  --focus-ring: rgba(59, 130, 246, 0.42);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Barlow", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+body {
+  padding: 0;
+}
+
+.app-root {
+  min-height: 100vh;
+  width: 100%;
+  padding: 16px;
+  animation: panel-in 360ms ease-out;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.app-header h1 {
+  margin: 0;
+  letter-spacing: 0.01em;
+  font: 700 1.75rem/1.04 "Space Grotesk", sans-serif;
+}
+
+.lots-container {
+  margin-top: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.lot-card {
+  position: relative;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  border-radius: 18px;
+  padding: 16px 12px 14px;
+  box-shadow: var(--shadow);
+}
+
+.lot-head {
+  display: block;
+  height: 18px;
+}
+
+.remove-lot-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  border-radius: 0 18px 0 10px;
+  width: 48px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.remove-lot-btn:hover,
+.remove-lot-btn:focus-visible {
+  background: #c42b1c;
+  color: #ffffff;
+  outline: none;
+}
+
+.history-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.history-btn {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 8px 11px;
+  background: var(--secondary-bg);
+  color: var(--secondary-ink);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.history-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.job-card {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(108px, 34%);
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+}
+
+.field-subdivision-search {
+  position: relative;
+}
+
+.field-lot-search {
+  position: relative;
+}
+
+.field > span {
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.compact-field > span {
+  font-size: 0.84rem;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--input-bg);
+  color: var(--ink);
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--focus-ring);
+  border-color: var(--primary);
+}
+
+.items-container {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.item-row {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  background: var(--panel-soft);
+  animation: item-in 240ms ease-out;
+}
+
+.field-qty {
+  flex: 0 0 64px;
+}
+
+.field-item-search {
+  flex: 1;
+}
+
+.field-item-search {
+  position: relative;
+}
+
+.subdivision-suggestions,
+.lot-suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  z-index: 25;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.subdivision-option,
+.lot-option {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.subdivision-option:last-child,
+.lot-option:last-child {
+  border-bottom: 0;
+}
+
+.subdivision-select-btn,
+.lot-select-btn {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  padding: 9px 10px;
+  flex: 1;
+  cursor: pointer;
+}
+
+.subdivision-select-btn:hover,
+.subdivision-select-btn:focus-visible,
+.lot-select-btn:hover,
+.lot-select-btn:focus-visible {
+  background: var(--suggestion-hover);
+  outline: none;
+}
+
+.subdivision-remove-btn,
+.lot-remove-btn {
+  border: 0;
+  background: var(--danger-bg);
+  color: var(--danger-ink);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  margin-right: 8px;
+  font-weight: 700;
+  font-size: 0.86rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  z-index: 20;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.suggestion-btn {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.suggestion-btn:last-child {
+  border-bottom: 0;
+}
+
+.suggestion-btn:hover,
+.suggestion-btn:focus-visible {
+  background: var(--suggestion-hover);
+  outline: none;
+}
+
+.suggestion-top {
+  font-weight: 700;
+}
+
+.suggestion-sub {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.remove-item-btn {
+  border: 0;
+  border-radius: 10px;
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  margin-bottom: 4px;
+  background: var(--danger-bg);
+  color: var(--danger-ink);
+  font-weight: 700;
+  font-size: 0.82rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.add-item-btn {
+  margin: 10px auto 0;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  position: relative;
+  font-size: 0;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.add-item-btn::before,
+.add-item-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: currentColor;
+  border-radius: 2px;
+  transform: translate(-50%, -50%);
+}
+
+.add-item-btn::before {
+  width: 16px;
+  height: 2px;
+}
+
+.add-item-btn::after {
+  width: 2px;
+  height: 16px;
+}
+
+.actions {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-ink);
+}
+
+.btn-secondary {
+  background: var(--secondary-bg);
+  color: var(--secondary-ink);
+}
+
+.output {
+  margin-top: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.output h2 {
+  margin: 0 0 8px;
+  font: 700 1.1rem/1.2 "Space Grotesk", sans-serif;
+}
+
+.output textarea {
+  min-height: 190px;
+  resize: vertical;
+}
+
+.output-actions {
+  margin-top: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (min-width: 720px) {
+  .app-root {
+    padding: 24px;
+  }
+
+  .lots-container {
+    gap: 14px;
+  }
+
+  .lot-card {
+    padding: 16px;
+  }
+
+  .job-card {
+    grid-template-columns: minmax(0, 1fr) minmax(140px, 28%);
+  }
+
+  .actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .output-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .add-item-btn {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@keyframes item-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
