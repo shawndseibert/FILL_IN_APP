@@ -68,7 +68,6 @@ body {
   background: color-mix(in srgb, var(--panel) 88%, transparent);
   border-radius: 18px;
   padding: 16px 12px 14px;
-  box-shadow: var(--shadow);
 }
 
 .lot-head {
@@ -215,7 +214,6 @@ textarea:focus {
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--panel);
-  box-shadow: var(--shadow);
   z-index: 25;
   max-height: 220px;
   overflow-y: auto;
@@ -277,7 +275,6 @@ textarea:focus {
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--panel);
-  box-shadow: var(--shadow);
   z-index: 20;
   max-height: 220px;
   overflow-y: auto;
